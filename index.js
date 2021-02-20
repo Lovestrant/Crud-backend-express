@@ -63,11 +63,11 @@ todos.name = req.body.name;
 res.send(todos);
 });
 
-app.delete('/api/todos/:id', (req, res) =>{
+app.delete('/todos/:id', (req, res) =>{
     const todos = todos.find(todos => todos.id === parseInt(req.params.id));
     if(!todos) res.status(404).send('todos with that id not found');
     const index= todos.indexOf(todos);
-    todos.splice(insex, 1);
+    todos.splice(index, 1);
     res.send(todos);
 });
 

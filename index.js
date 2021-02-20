@@ -26,16 +26,16 @@ let todos = [
 
 app.get('/', (req, res)=>{
 res.send('I am running on port 7000');
-})
+});
 
 app.get('/todos', function(req, res) {
     console.log(todos),
      res.send(todos)
-})
+});
 
 app.get('/posts/todos/:id/:name', (req, res)=> {
     res.send(req.params);
-})
+});
 
 app.post('/api/todos', (req,res) => {
     let todos = {
@@ -44,10 +44,10 @@ app.post('/api/todos', (req,res) => {
     };
     todos.push(todos);
     res.send(todos);
-})
+});
 
 
-app.put('api/todos/:id', (req,res) => {
+app.put('/api/todos/:id', (req,res) => {
 const todos = todos.find(todos => todos.id === parseInt(req.params.id));
 if(!todos) res.status(404).send('todos with that id not found');
 
@@ -61,10 +61,18 @@ if(result.error){
 }
 todos.name = req.body.name;
 res.send(todos);
-})
+});
+
+app.delete('/api/todos/:id', (req, res) =>{
+    const todos = todos.find(todos => todos.id === parseInt(req.params.id));
+    if(!todos) res.status(404).send('todos with that id not found');
+    const index= todos.indexOf(todos);
+    todos.splice(insex, 1);
+    res.send(todos);
+});
 
 
-app.listen(7000,  function(){
+app.listen(7000,  ()=>{
     console.log("hello world");
 }
 
